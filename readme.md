@@ -1,4 +1,4 @@
-# Merged Beams Experiments
+# Monte Carlo Simulation of Merged Beams Experiments
 0. Simulation for merged atomic beams experiments at DESIREE.
 1. You need basic level in python to use these python3 scripts.
 2. Necessary libraries: numpy, scipy, pandas and periodictable (https://pypi.org/project/periodictable/)
