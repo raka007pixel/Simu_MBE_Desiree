@@ -15,7 +15,7 @@ import periodictable as pt
 
 # for the reaction H+ + H- --> H + H, unit: eV, ker[2], n = 3 reaction, dominant at low cm energy
 ker = [12.84, 2.64, 0.75, 0.09]
-ratio = [0, 0, 1, 0.0]  # branching ratio, 0.48 stands for 48 %
+br_ratio = [0, 0, 1, 0.0]  # branching ratio, 0.48 stands for 48 %
 n_ker = int(len(ker))
 
 # num of bins for hist, bin width for density
@@ -35,7 +35,7 @@ anion_ke_spread = 0.002
 anion_ke_sig = anion_ke * anion_ke_spread / 2.3548
 
 # high energy platform (he)
-he_extra_volt = 6.0e3 + 126 * 0.8 # unit: V
+he_extra_volt = round(6.0e3 + 126 * 0.8, 0) # unit: V
 cation_mass = pt.H[1].mass * const.amu_kg - const.electron_kg  # unit: kg
 # print(pt.H[1].mass, pt.He[4].mass)
 cation_charge = 1  # unit: e

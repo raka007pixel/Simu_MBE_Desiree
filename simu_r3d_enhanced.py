@@ -23,7 +23,7 @@ idk = 2
 
 # check time limit with tac convert [1] as well as neutrals' position if on imd;
 # 3d plot; if save on disk
-exp_mode, fig3d, save2fig = True, True, True
+exp_mode, fig3d, save2fig = True, True, False
 
 # calc ker_speed shared by anion and cation
 anion_speed_ker = np.sqrt(2 * ker[idk] * const.eV_J / (anion_mass * (anion_mass / cation_mass + 1)))

@@ -22,20 +22,20 @@ cation_speed_tube = func.ke2speed(cation_ke_tube, cation_mass)
 speed_diff = abs(anion_speed_tube - cation_speed_tube)
 
 
-if len(dt_volt) > 0:
-    # two dicts
-    volt_ecm = dict(zip(drift_tube_volt, com_energy))
-    volt_spd_diff = dict(zip(drift_tube_volt, speed_diff))
+# if len(dt_volt) > 0:
+#     # two dicts
+#     volt_ecm = dict(zip(drift_tube_volt, com_energy))
+#     volt_spd_diff = dict(zip(drift_tube_volt, speed_diff))
 
-    # find corresponding ecm and speed diff
-    exp_ecm = [volt_ecm[v] for v in dt_volt]
-    exp_spd_diff = [volt_spd_diff[v] for v in dt_volt]
+#     # find corresponding ecm and speed diff
+#     exp_ecm = [volt_ecm[v] for v in dt_volt]
+#     exp_spd_diff = [volt_spd_diff[v] for v in dt_volt]
 
-    # create an array to save the related info
-    exp_array = np.array([dt_volt, exp_ecm, exp_spd_diff]).T
-    svf = ['%d'] + ['%.4f'] * 2
+#     # create an array to save the related info
+#     exp_array = np.array([dt_volt, exp_ecm, exp_spd_diff]).T
+#     svf = ['%d'] + ['%.4f'] * 2
 
-    np.savetxt('_ecm_speed_diff.txt', exp_array, fmt=svf, delimiter='\t')
+#     np.savetxt('_ecm_speed_diff.txt', exp_array, fmt=svf, delimiter='\t')
 
 
 # plot
@@ -49,9 +49,9 @@ ax.set_xlim(dt_volt_slt[0], dt_volt_slt[1])
 # ax.xaxis.set_minor_locator(ticker.MultipleLocator(5))
 ax.set_xlabel("Drift Tube Voltage (V)")
 
-ax.set_ylim(0, 3.0)
-# ax.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
-# ax.yaxis.set_minor_locator(ticker.MultipleLocator(0.05))
+ax.set_ylim(0, 2.0)
+ax.yaxis.set_major_locator(ticker.MultipleLocator(0.2))
+ax.yaxis.set_minor_locator(ticker.MultipleLocator(0.05))
 ax.set_ylabel(r"$\mathrm{E_{CM}}$ (eV)")
 ax.grid(b=None, which='major', axis='both', color='k', linestyle='-', linewidth=0.5)
 ax.grid(b=None, which='minor', axis='both', color='k', linestyle='-.', linewidth=0.5)

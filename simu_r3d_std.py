@@ -34,7 +34,7 @@ for i in range(n_ker):
     cation_ke_ker = func.speed2ke(cation_speed_ker, cation_mass)
     # print(anion_ke_ker, cation_ke_ker, anion_ke_ker/cation_ke_ker)
 
-    num_ions = int(100000 * ratio[i])
+    num_ions = int(100000 * br_ratio[i])
 
     for n in range(num_ions):
         pos_pu2 = random.uniform(dts_to_imd[0], dts_to_imd[dt_first])
