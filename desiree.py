@@ -13,30 +13,36 @@ import numpy as np
 import periodictable as pt
 
 
-# for the reaction H3O+ + OH- -->
-ker = [4.62, 3.97, 9.79]  # unit: eV
-br_ratio = [0.5, 0.5, 0.5]  # branching ratio, 0.48 stands for 48 %
+# for the reaction H+ + H- --> H + H, unit: eV, ker[2], n = 3 reaction, dominant at low cm energy
+ker = [12.84, 2.64, 0.75, 0.09]
+ratio = [0, 0, 1, 0.0]  # branching ratio, 0.48 stands for 48 %
 n_ker = int(len(ker))
 
 # num of bins for hist, bin width for density
 num_bins, bin_width = 500, 0.01
 
 # voltage range around zero center of mass energy
-dt_volt_slt = [-500, 0]
+dt_volt_slt = [600, 800]
 
 # ------------------------------------------Ion source settings----------------------------------------------
 # low energy platform (le)
-le_extra_volt = -19.0e3  # unit: V
-anion_mass = (pt.H[1].mass + pt.O[16].mass) * const.amu_kg + const.electron_kg
+le_extra_volt = -9.965e3  # unit: V
+anion_mass = pt.H[2].mass * const.amu_kg + const.electron_kg
 anion_charge = -1  # unit: e
 anion_ke = le_extra_volt * anion_charge  # unit: eV
+# fwhm of the gaussian-like KE distribution = anion_ke * anion_ke_spread
+anion_ke_spread = 0.002
+anion_ke_sig = anion_ke * anion_ke_spread / 2.3548
 
 # high energy platform (he)
-he_extra_volt = 21.0e3  # unit: V
-cation_mass = pt.O[16].mass * const.amu_kg - const.electron_kg  # unit: kg
+he_extra_volt = 6.0e3 + 126 * 0.8 # unit: V
+cation_mass = pt.H[1].mass * const.amu_kg - const.electron_kg  # unit: kg
 # print(pt.H[1].mass, pt.He[4].mass)
 cation_charge = 1  # unit: e
 cation_ke = he_extra_volt * cation_charge
+# fwhm of the gaussian-like KE distribution = cation_ke * cation_ke_spread
+cation_ke_spread = 0.002
+cation_ke_sig = cation_ke * cation_ke_spread / 2.3548
 
 # calc the reduced mass
 reduced_mass = anion_mass * cation_mass / (anion_mass + cation_mass)
@@ -170,6 +176,5 @@ if print2scr is True:
           '\ns-ring revolution period (us): {4}'
           '\na-ring revolution period (us): {5}\n'
           '\nid signal delay (us): {6}'
-          '\n'.format(str(anion_speed), str(cation_speed), str(tof_le_to_s), str(tof_he_to_a), str(rev_time_s),
-                      str(rev_time_a), str(imd_gate_delay)))
-# ------------------------------------------------------------------------------------------------------------
+          '\n'.format(str(anion_speed), str(cation_speed), str(tof_le_to_s), str(tof_he_to_a), str(rev_time_s), str(rev_time_a), str(imd_gate_delay)))
+#------------------------------------------------------------------------------------------------------------
