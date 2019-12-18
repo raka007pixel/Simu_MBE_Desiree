@@ -117,7 +117,7 @@ imd_strip_hw = 20
 
 # data acquisition system
 # convert voltage to time, time = 500ns/10V + 95 ns
-tac_convert = [50, 200]
+tac_convert = [50, 95]
 
 # camac basic settings
 camac_strips = 16
@@ -134,7 +134,7 @@ camac_time = [18.96, 40.66, 61.17, 80.39, 98.04, 116.92, 135.43, 147.79, 157.17,
               207.41, 217.23, 227.08]
 
 # match ratio diss when combining camaco and img files
-match_ratio_diss = 0.5
+match_ratio_diss = 0.6
 
 # create a list of offset to correct the frame id
 max_id_offset = 2

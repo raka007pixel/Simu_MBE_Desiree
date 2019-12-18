@@ -13,7 +13,7 @@ mpl.rc('pdf', fonttype=42)
 mpl.rc('axes.spines', left=True, top=True, right=True, bottom=True)
 mpl.rcParams.update({'font.family': 'serif', 'font.serif': 'Times', 'mathtext.fontset': 'cm', 'font.size': 14})
 
-save2fig = False
+save2fig = True
 
 # beam speed in the drift tube
 anion_speed_tube = func.ke2speed(anion_ke_tube, anion_mass)
