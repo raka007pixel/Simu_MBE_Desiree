@@ -19,8 +19,7 @@ mpl.rcParams.update({'font.family': 'serif', 'font.serif': 'Times', 'mathtext.fo
 # save on disk or not
 save2fig = True
 
-ion_pos_dt_cent = []
-ion_pos_pu2, ion_pos_pu1 = [], []
+ion_pos_dt_cent, ion_pos_pu2, ion_pos_pu1 = [], [], []
 
 anion_speed_axial, anion_speed_radial = [], []
 cation_speed_axial, cation_speed_radial = [], []
