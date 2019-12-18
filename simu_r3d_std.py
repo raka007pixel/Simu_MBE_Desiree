@@ -160,6 +160,6 @@ ax3.legend(loc='best', frameon=False)
 # save file or, not
 if save2fig is True:
     fig1.savefig(''.join(['Simu_MN_DCT_DT', str(dt_first), '-', str(dt_last), '.png']), dpi=150)
-    np.savetxt('_cal_r3d.txt', r_3d * 1.0e3, fmt=['%.4f'], delimiter='\t')
+    np.savetxt('_simu_r3d.txt', r_3d * 1.0e3, fmt=['%.4f'], delimiter='\t')
 else:
     plt.show()
