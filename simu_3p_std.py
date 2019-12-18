@@ -56,14 +56,15 @@ p1_ker, p2_ker, p3_ker = [], [], []
 area_imd = []
 
 for n in range(num_ions):
-    # event position
+    # event position, need to improve
     pos_dt_bias = random.uniform(dts_to_imd[dt_first], dts_to_imd[dt_last + 1])
 
     # ker taken by He:
     e1 = random.uniform(0, e1_max)
     p1_ker.append(e1)
 
- # doesn't work
+ # doesn't work yet!
+ # working hard to develop
 
 
 # plot
