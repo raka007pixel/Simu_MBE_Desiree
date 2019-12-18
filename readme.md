@@ -5,4 +5,5 @@
 3. it is allowed to use and share these codes inside the DESIREE group, author has limited responsibility to maintain and upgrade these codes.
 
 
-* MCS^2 still under early stage of development
+* MCS^2 of 3 neutral particles is still under early stage of development. 
+* To get update, welcome back.
