@@ -1,7 +1,7 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8 -*-
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-# |m|i|n|g|c|h|a|o|j|i| @ 2019-11-20 10:50|
+# |m|i|n|g|c|h|a|o|j|i| @ 2019-03-10 13:32|
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 from scipy.special import radian
@@ -9,43 +9,47 @@ from scipy.special import radian
 import const
 import func
 import numpy as np
-# import pandas as pd
+import pandas as pd
 import periodictable as pt
 
+# file index
+fidx = 38
 
-# for the reaction H+ + H- --> H + H, unit: eV, ker[2], n = 3 reaction, dominant at low cm energy
-ker = [12.84, 2.64, 0.75, 0.09]
-br_ratio = [0, 0, 1, 0.0]  # branching ratio, 0.48 stands for 48 %
+# for the reaction HeH+ + H- --> He + H + ...
+ker = [11.0, 0.8, 15.5]  # unit: eV
+br_ratio = [0.0, 0.0, 1.0]  # branching ratio, 0.48 stands for 48 %
 n_ker = int(len(ker))
 
 # num of bins for hist, bin width for density
-num_bins, bin_width = 500, 0.01
+num_bins, bin_width = 800, 0.01
 
 # voltage range around zero center of mass energy
-dt_volt_slt = [600, 800]
+dt_volt_slt = [-1100, -800]
 
 # ------------------------------------------Ion source settings----------------------------------------------
 # low energy platform (le)
-le_extra_volt = -9.965e3  # unit: V
+le_extra_volt = -7.0e3  # unit: V
 anion_mass = pt.H[2].mass * const.amu_kg + const.electron_kg
 anion_charge = -1  # unit: e
 anion_ke = le_extra_volt * anion_charge  # unit: eV
-# fwhm of the gaussian-like KE distribution = anion_ke * anion_ke_spread
-anion_ke_spread = 0.002
-anion_ke_sig = anion_ke * anion_ke_spread / 2.3548
+
 
 # high energy platform (he)
-he_extra_volt = round(6.0e3 + 126 * 0.8, 0) # unit: V
-cation_mass = pt.H[1].mass * const.amu_kg - const.electron_kg  # unit: kg
+he_extra_volt = 14.0e3  # unit: V
+cation_mass = (pt.He[4].mass + pt.H[1].mass) * const.amu_kg - const.electron_kg  # unit: kg
 # print(pt.H[1].mass, pt.He[4].mass)
 cation_charge = 1  # unit: e
 cation_ke = he_extra_volt * cation_charge
-# fwhm of the gaussian-like KE distribution = cation_ke * cation_ke_spread
-cation_ke_spread = 0.002
-cation_ke_sig = cation_ke * cation_ke_spread / 2.3548
+
 
 # calc the reduced mass
 reduced_mass = anion_mass * cation_mass / (anion_mass + cation_mass)
+
+
+# list of neutrals (amu) for permutations to calc total ker
+neut_amu = [pt.He[4].mass, pt.H[2].mass, pt.H[1].mass]
+neut_kg = [mass * const.amu_kg for mass in neut_amu]
+n_neut = len(neut_amu)
 # -----------------------------------------------------------------------------------------------------------
 
 
@@ -62,8 +66,7 @@ drift_tube_bias = [1, 7]
 
 ms_ctr_to_imd = 1.690  # center, unit: m
 # distance from imd to: 10def center, dt1-7 start, dt7 end, 10 def center, interval shared by two neighbouring tubes
-dts_to_imd = [1.166, 1.410, 1.4875, 1.5665,
-              1.6505, 1.7295, 1.8135, 1.8925, 1.970, 2.214]
+dts_to_imd = [1.166, 1.410, 1.4875, 1.5665, 1.6505, 1.7295, 1.8135, 1.8925, 1.970, 2.214]
 # diff = [dist_to_imd[i+1] - dist_to_imd[i] for i in range(len(dist_to_imd)-1)]
 dt_first, dt_last = min(drift_tube_bias), max(drift_tube_bias)
 dt_ctr_to_imd = (dts_to_imd[dt_first] + dts_to_imd[dt_last + 1]) * 0.5
@@ -112,20 +115,22 @@ max_img_spots, img_count_diss = 6, 1  # max num of spots, plot discrimination
 # ref to the y values of spots
 imd_strip_center = [353, 331.37, 309.65, 287.94, 266.71, 245.11, 221.44, 201.82, 179.73, 158.07, 137.43,
                     115.93, 93.26, 72.22, 50.33, 30.03]
+
+# imd_strip_center = [266.71, 331.37, 309.65, 287.94, 353, 245.11, 221.44, 201.82, 179.73, 158.07, 30.03,
+                    # 115.93, 93.26, 72.22, 50.33, 137.43]
 # print(imd_strip_center[::-1])
 imd_strip_hw = 20
 
 # data acquisition system
 # convert voltage to time, time = 500ns/10V + 95 ns
-tac_convert = [50, 200]
+tac_convert = [50, 150]
 
 # camac basic settings
 camac_strips = 16
 camac_time_diss = 20  # unit: ns
 
 # used in the camac time calibration
-# same discrimination as camac_time_diss, but without unit.
-camac_value_diss = 180
+camac_value_diss = 180  # same discrimination as camac_time_diss, but without unit.
 
 # input time = 16 * n + 25  unit: ns, might not be true, use the measured one for calibration
 camac_convert = [16, 25]
@@ -145,7 +150,9 @@ frame_id_offset = sum(id_offset, [])
 
 max_cycle_offset = 20
 # create a list of offset numbers for storage cycle num
-cycle_num_offset = [j for j in range(max_cycle_offset + 1)]
+# cycle_offset = [[0] if i == 0 else [-i, i] for i in range(max_cycle_offset + 1)]
+# cycle_num_offset = sum(cycle_offset, [])
+cycle_num_offset = [j for j in range(max_cycle_offset+1)]
 # print(cycle_num_offset)
 # -----------------------------------------------------------------------------------------------------------
 
@@ -176,5 +183,6 @@ if print2scr is True:
           '\ns-ring revolution period (us): {4}'
           '\na-ring revolution period (us): {5}\n'
           '\nid signal delay (us): {6}'
-          '\n'.format(str(anion_speed), str(cation_speed), str(tof_le_to_s), str(tof_he_to_a), str(rev_time_s), str(rev_time_a), str(imd_gate_delay)))
-#------------------------------------------------------------------------------------------------------------
+          '\n'.format(str(anion_speed), str(cation_speed), str(tof_le_to_s), str(tof_he_to_a), str(rev_time_s),
+                      str(rev_time_a), str(imd_gate_delay)))
+# ------------------------------------------------------------------------------------------------------------
