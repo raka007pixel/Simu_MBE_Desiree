@@ -29,7 +29,7 @@ dt_volt_slt = [0, 400]
 
 # ------------------------------------------Ion source settings----------------------------------------------
 # low energy platform (le)
-le_extra_volt = -12.20e3  # unit: V
+le_extra_volt = -18.60e3  # unit: V
 anion_mass = (pt.H[1].mass + pt.C[13].mass * 4)* const.amu_kg + const.electron_kg
 anion_charge = -1  # unit: e
 anion_ke = le_extra_volt * anion_charge  # unit: eV
@@ -38,7 +38,7 @@ anion_ke_spread = 0.002
 anion_ke_sig = anion_ke * anion_ke_spread / 2.3548
 
 # high energy platform (he)
-he_extra_volt = 4.0e3 # unit: V
+he_extra_volt = 6.0e3 # unit: V
 cation_mass = pt.O[16].mass * const.amu_kg - const.electron_kg  # unit: kg
 # print(pt.H[1].mass, pt.He[4].mass)
 cation_charge = 1  # unit: e

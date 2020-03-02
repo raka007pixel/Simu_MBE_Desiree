@@ -20,7 +20,7 @@ mpl.rc('axes.spines', left=True, top=True, right=True, bottom=True)
 mpl.rcParams.update({'font.family': 'serif', 'font.serif': 'Times', 'mathtext.fontset': 'cm', 'font.size': 14})
 
 # save on disk or not
-save2fig = True
+save2fig = False
 
 ion_pos_dt_cent, ion_pos_pu2, ion_pos_pu1 = [], [], []
 
