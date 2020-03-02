@@ -4,7 +4,7 @@
 # author: MingChao Ji
 # email: mingchao.ji@fysik.su.se
 # date created: 2020-01-15 13:26:29
-# last modified: 2020-01-15 13:26:29
+# last modified: 2020-03-02 14:21:01
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 from desiree import *
@@ -16,7 +16,7 @@ mpl.rc('pdf', fonttype=42)
 mpl.rc('axes.spines', left=True, top=True, right=True, bottom=True)
 mpl.rcParams.update({'font.family': 'serif', 'font.serif': 'Times', 'mathtext.fontset': 'cm', 'font.size': 14})
 
-save2fig = False
+save2fig = True
 
 # beam speed in the drift tube
 anion_speed_tube = func.ke2speed(anion_ke_tube, anion_mass)
@@ -48,13 +48,13 @@ fig.subplots_adjust(left=0.15, bottom=0.15, right=0.9, top=0.9, wspace=0.1, hspa
 
 ax.plot(drift_tube_volt, com_energy, 'r-', label=r'$\mathrm{E_{CM}}$')
 ax.set_xlim(dt_volt_slt[0], dt_volt_slt[1])
-# ax.xaxis.set_major_locator(ticker.MultipleLocator(50))
-# ax.xaxis.set_minor_locator(ticker.MultipleLocator(5))
+ax.xaxis.set_major_locator(ticker.MultipleLocator(50))
+ax.xaxis.set_minor_locator(ticker.MultipleLocator(5))
 ax.set_xlabel("Drift Tube Voltage (V)")
 
-ax.set_ylim(0, 2.0)
-ax.yaxis.set_major_locator(ticker.MultipleLocator(0.2))
-ax.yaxis.set_minor_locator(ticker.MultipleLocator(0.05))
+ax.set_ylim(0, 5.0)
+ax.yaxis.set_major_locator(ticker.MultipleLocator(0.5))
+ax.yaxis.set_minor_locator(ticker.MultipleLocator(0.1))
 ax.set_ylabel(r"$\mathrm{E_{CM}}$ (eV)")
 ax.grid(b=None, which='major', axis='both', color='k', linestyle='-', linewidth=0.5)
 ax.grid(b=None, which='minor', axis='both', color='k', linestyle='-.', linewidth=0.5)

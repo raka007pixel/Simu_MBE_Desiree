@@ -4,7 +4,7 @@
 # author: MingChao Ji
 # email: mingchao.ji@fysik.su.se
 # date created: 2020-01-15 13:26:57
-# last modified: 2020-01-15 13:26:57
+# last modified: 2020-03-02 14:20:55
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 from desiree import *
@@ -20,7 +20,7 @@ mpl.rc('axes.spines', left=True, top=True, right=True, bottom=True)
 mpl.rcParams.update({'font.family': 'serif', 'font.serif': 'Times', 'mathtext.fontset': 'cm', 'font.size': 14})
 
 # save on disk or not
-save2fig = False
+save2fig = True
 
 ion_pos_dt_cent, ion_pos_pu2, ion_pos_pu1 = [], [], []
 
@@ -36,7 +36,7 @@ for i in range(n_ker):
     cation_ke_ker = func.speed2ke(cation_speed_ker, cation_mass)
     # print(anion_ke_ker, cation_ke_ker, anion_ke_ker/cation_ke_ker)
 
-    num_ions = int(100000 * br_ratio[i])
+    num_ions = int(1.0e5 * br_ratio[i])
 
     for n in range(num_ions):
         pos_pu2 = random.uniform(dts_to_imd[0], dts_to_imd[dt_first])

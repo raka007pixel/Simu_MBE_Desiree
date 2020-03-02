@@ -4,7 +4,7 @@
 # author: MingChao Ji
 # email: mingchao.ji@fysik.su.se
 # date created: 2020-01-15 13:26:45
-# last modified: 2020-01-15 13:26:45
+# last modified: 2020-03-02 14:20:58
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 from desiree import *
@@ -22,11 +22,11 @@ mpl.rc('axes.spines', left=True, top=True, right=True, bottom=True)
 mpl.rcParams.update({'font.family': 'serif', 'font.serif': 'Times', 'mathtext.fontset': 'cm', 'font.size': 12})
 
 # ker selection
-idk = 2
+idk = 0
 
 # check time limit with tac convert [1] as well as neutrals' position if on imd;
 # 3d plot; if save on disk
-exp_mode, fig3d, save2fig = True, True, False
+exp_mode, fig3d, save2fig = True, False, True
 
 # calc ker_speed shared by anion and cation
 anion_speed_ker = np.sqrt(2 * ker[idk] * const.eV_J / (anion_mass * (anion_mass / cation_mass + 1)))

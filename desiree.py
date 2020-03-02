@@ -4,7 +4,7 @@
 # author: MingChao Ji
 # email: mingchao.ji@fysik.su.se
 # date created: 2020-01-15 13:25:52
-# last modified: 2020-01-15 13:25:52
+# last modified: 2020-03-02 14:20:47
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 from scipy.special import radian
@@ -17,20 +17,20 @@ import periodictable as pt
 
 
 # for the reaction H+ + H- --> H + H, unit: eV, ker[2], n = 3 reaction, dominant at low cm energy
-ker = [12.84, 2.64, 0.75, 0.09]
-br_ratio = [0, 0, 1, 0]  # branching ratio, 0.48 stands for 48 %
+ker = [0.94]
+br_ratio = [1]  # branching ratio, 0.48 stands for 48 %
 n_ker = int(len(ker))
 
 # num of bins for hist, bin width for density
 num_bins, bin_width = 500, 0.01
 
 # voltage range around zero center of mass energy
-dt_volt_slt = [600, 800]
+dt_volt_slt = [0, 400]
 
 # ------------------------------------------Ion source settings----------------------------------------------
 # low energy platform (le)
-le_extra_volt = -9.965e3  # unit: V
-anion_mass = pt.H[2].mass * const.amu_kg + const.electron_kg
+le_extra_volt = -12.20e3  # unit: V
+anion_mass = (pt.H[1].mass + pt.C[13].mass * 4)* const.amu_kg + const.electron_kg
 anion_charge = -1  # unit: e
 anion_ke = le_extra_volt * anion_charge  # unit: eV
 # fwhm of the gaussian-like KE distribution = anion_ke * anion_ke_spread
@@ -38,8 +38,8 @@ anion_ke_spread = 0.002
 anion_ke_sig = anion_ke * anion_ke_spread / 2.3548
 
 # high energy platform (he)
-he_extra_volt = round(6.0e3 + 126 * 0.8, 0) # unit: V
-cation_mass = pt.H[1].mass * const.amu_kg - const.electron_kg  # unit: kg
+he_extra_volt = 4.0e3 # unit: V
+cation_mass = pt.O[16].mass * const.amu_kg - const.electron_kg  # unit: kg
 # print(pt.H[1].mass, pt.He[4].mass)
 cation_charge = 1  # unit: e
 cation_ke = he_extra_volt * cation_charge
@@ -61,7 +61,7 @@ hebc_to_s, hebc_to_a = 9.93, 7.80
 
 # settings on drift tube
 # give the first and last tube numbers (from 1 to 7), if only one used, write one number
-drift_tube_bias = [1, 7]
+drift_tube_bias = [3, 5]
 
 ms_ctr_to_imd = 1.690  # center, unit: m
 # distance from imd to: 10def center, dt1-7 start, dt7 end, 10 def center, interval shared by two neighbouring tubes
@@ -120,7 +120,7 @@ imd_strip_hw = 20
 
 # data acquisition system
 # convert voltage to time, time = 500ns/10V + 95 ns
-tac_convert = [50, 95]
+tac_convert = [50, 180]
 
 # camac basic settings
 camac_strips = 16
@@ -140,7 +140,7 @@ camac_time = [18.96, 40.66, 61.17, 80.39, 98.04, 116.92, 135.43, 147.79, 157.17,
 match_ratio_diss = 0.6
 
 # create a list of offset to correct the frame id
-max_id_offset = 2
+max_id_offset = 5
 # create a list of offset numbers for img
 id_offset = [[0] if i == 0 else [-i, i] for i in range(max_id_offset + 1)]
 frame_id_offset = sum(id_offset, [])
