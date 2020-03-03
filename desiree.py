@@ -17,8 +17,8 @@ import periodictable as pt
 
 
 # for the reaction H+ + H- --> H + H, unit: eV, ker[2], n = 3 reaction, dominant at low cm energy
-ker = [0.94]
-br_ratio = [1]  # branching ratio, 0.48 stands for 48 %
+ker = [0.97, 0.57]
+br_ratio = [0.5, 0.5]  # branching ratio, 0.48 stands for 48 %
 n_ker = int(len(ker))
 
 # num of bins for hist, bin width for density
