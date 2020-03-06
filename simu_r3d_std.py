@@ -131,7 +131,7 @@ fig1.subplots_adjust(left=0.15, bottom=0.1, right=0.95, top=0.95, wspace=0.1, hs
 ax1.hist(time_separation_dt_cent * 1.0e9, bins=num_bins, histtype='step', label='dt_bias', alpha=0.75)
 ax1.hist(time_separation_pu2 * 1.0e9, bins=num_bins, histtype='step', label='pu2', alpha=0.75)
 ax1.hist(time_separation_pu1 * 1.0e9, bins=num_bins, histtype='step', label='pu1', alpha=0.75)
-ax1.set_xlim(0, 500)
+# ax1.set_xlim(0, 500)
 ax1.set_xlabel('t (ns)')
 ax1.set_ylim(0, )
 ax1.set_ylabel('Yield (arb. unit)')
