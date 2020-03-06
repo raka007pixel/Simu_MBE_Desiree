@@ -25,7 +25,7 @@ n_ker = int(len(ker))
 num_bins, bin_width = 500, 0.01
 
 # voltage range around zero center of mass energy
-dt_volt_slt = [0, 400]
+dt_volt_slt = [0, 500]
 
 # ------------------------------------------Ion source settings----------------------------------------------
 # low energy platform (le)
@@ -65,8 +65,7 @@ drift_tube_bias = [3, 5]
 
 ms_ctr_to_imd = 1.690  # center, unit: m
 # distance from imd to: 10def center, dt1-7 start, dt7 end, 10 def center, interval shared by two neighbouring tubes
-dts_to_imd = [1.166, 1.410, 1.4875, 1.5665,
-              1.6505, 1.7295, 1.8135, 1.8925, 1.970, 2.214]
+dts_to_imd = [1.166, 1.410, 1.4875, 1.5665, 1.6505, 1.7295, 1.8135, 1.8925, 1.970, 2.214]
 # diff = [dist_to_imd[i+1] - dist_to_imd[i] for i in range(len(dist_to_imd)-1)]
 dt_first, dt_last = min(drift_tube_bias), max(drift_tube_bias)
 dt_ctr_to_imd = (dts_to_imd[dt_first] + dts_to_imd[dt_last + 1]) * 0.5
