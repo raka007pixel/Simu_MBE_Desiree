@@ -4,7 +4,7 @@
 # author: MingChao Ji
 # email: mingchao.ji@fysik.su.se
 # date created: 2020-01-15 13:25:52
-# last modified: 2020-03-02 14:20:47
+# last modified: 2020-03-06 13:39:07
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 from scipy.special import radian
